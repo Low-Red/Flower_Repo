@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Petal & Bloom — Fresh Flowers</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --rose:    #e8657a;
+      --blush:   #f9eef0;
+      --green:   #4a7c59;
+      --dark:    #2c2c2c;
+      --muted:   #6b6b6b;
+      --white:   #ffffff;
+    }
+
+    body {
+      font-family: 'Georgia', serif;
+      color: var(--dark);
+      background: var(--white);
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 6%;
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(6px);
+      z-index: 100;
+      border-bottom: 1px solid #f0e0e3;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      color: var(--rose);
+      letter-spacing: 0.04em;
+    }
+
+    .logo span { color: var(--green); }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-family: sans-serif;
+      font-size: 0.9rem;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--rose); }
+
+    .nav-cta {
+      background: var(--rose);
+      color: var(--white) !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 99px;
+    }
+
+    .nav-cta:hover { background: #d45268; color: var(--white) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+      padding: 5rem 6%;
+      background: linear-gradient(135deg, var(--blush) 0%, #fff 60%);
+      min-height: 88vh;
+    }
+
+    .hero-text { flex: 1; }
+
+    .hero-tag {
+      display: inline-block;
+      font-family: sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green);
+      background: #e8f2ec;
+      padding: 0.3rem 0.8rem;
+      border-radius: 99px;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      line-height: 1.15;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--rose);
+    }
+
+    .hero p {
+      font-family: sans-serif;
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 440px;
+      margin-bottom: 2rem;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--rose);
+      color: var(--white);
+      padding: 0.85rem 2rem;
+      border-radius: 99px;
+      text-decoration: none;
+      font-family: sans-serif;
+      font-size: 0.95rem;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover { background: #d45268; transform: translateY(-2px); }
+
+    .btn-secondary {
+      display: inline-block;
+      color: var(--green);
+      padding: 0.85rem 1.5rem;
+      text-decoration: none;
+      font-family: sans-serif;
+      font-size: 0.95rem;
+      margin-left: 0.8rem;
+    }
+
+    .btn-secondary:hover { text-decoration: underline; }
+
+    .hero-image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .flower-frame {
+      width: min(420px, 90vw);
+      aspect-ratio: 4/5;
+      border-radius: 50% 50% 46% 54% / 56% 56% 44% 44%;
+      background: linear-gradient(145deg, #f5c2cc, #fbe8d0, #c8e6c9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8rem;
+      box-shadow: 0 24px 60px rgba(232,101,122,0.18);
+    }
+
+    /* ── FEATURES ── */
+    .features {
+      padding: 5rem 6%;
+      text-align: center;
+    }
+
+    .section-label {
+      font-family: sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 0.6rem;
+    }
+
+    .features h2 {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      margin-bottom: 3rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .card {
+      background: var(--blush);
+      border-radius: 1.2rem;
+      padding: 2rem 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(232,101,122,0.1); }
+
+    .card-icon { font-size: 2.4rem; margin-bottom: 1rem; }
+
+    .card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .card p {
+      font-family: sans-serif;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── PRODUCTS ── */
+    .products {
+      padding: 5rem 6%;
+      background: #fafafa;
+    }
+
+    .products-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .products h2 {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .product-card {
+      background: var(--white);
+      border-radius: 1.2rem;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      transition: transform 0.2s;
+    }
+
+    .product-card:hover { transform: translateY(-4px); }
+
+    .product-img {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+    }
+
+    .p1 { background: linear-gradient(135deg, #fce4ec, #f8bbd0); }
+    .p2 { background: linear-gradient(135deg, #fff8e1, #ffe082); }
+    .p3 { background: linear-gradient(135deg, #e8f5e9, #a5d6a7); }
+    .p4 { background: linear-gradient(135deg, #ede7f6, #ce93d8); }
+
+    .product-info {
+      padding: 1.2rem 1.4rem;
+    }
+
+    .product-info h3 { font-size: 1rem; margin-bottom: 0.3rem; }
+
+    .product-info p {
+      font-family: sans-serif;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .price {
+      font-family: sans-serif;
+      font-weight: bold;
+      color: var(--rose);
+      font-size: 1.05rem;
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials {
+      padding: 5rem 6%;
+      text-align: center;
+    }
+
+    .testimonials h2 {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      margin-bottom: 3rem;
+    }
+
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .testi-card {
+      background: var(--blush);
+      border-radius: 1.2rem;
+      padding: 2rem;
+      text-align: left;
+    }
+
+    .stars { color: #f4b400; font-size: 1.1rem; margin-bottom: 0.8rem; }
+
+    .testi-card p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--dark);
+      margin-bottom: 1.2rem;
+    }
+
+    .testi-author {
+      font-family: sans-serif;
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: bold;
+    }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--rose), #c0436e);
+      color: var(--white);
+      text-align: center;
+      padding: 5rem 6%;
+    }
+
+    .cta-banner h2 {
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      margin-bottom: 1rem;
+    }
+
+    .cta-banner p {
+      font-family: sans-serif;
+      font-size: 1rem;
+      opacity: 0.85;
+      margin-bottom: 2rem;
+    }
+
+    .btn-white {
+      display: inline-block;
+      background: var(--white);
+      color: var(--rose);
+      padding: 0.85rem 2.2rem;
+      border-radius: 99px;
+      text-decoration: none;
+      font-family: sans-serif;
+      font-size: 0.95rem;
+      font-weight: bold;
+      transition: transform 0.15s;
+    }
+
+    .btn-white:hover { transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      color: #aaa;
+      padding: 3rem 6%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .footer-brand .logo { font-size: 1.3rem; }
+
+    .footer-brand p {
+      font-family: sans-serif;
+      font-size: 0.85rem;
+      margin-top: 0.6rem;
+      max-width: 220px;
+      line-height: 1.6;
+    }
+
+    .footer-links h4 {
+      color: var(--white);
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-links ul { list-style: none; }
+
+    .footer-links li { margin-bottom: 0.5rem; }
+
+    .footer-links a {
+      font-family: sans-serif;
+      font-size: 0.85rem;
+      color: #aaa;
+      text-decoration: none;
+    }
+
+    .footer-links a:hover { color: var(--rose); }
+
+    .footer-bottom {
+      background: #222;
+      text-align: center;
+      padding: 1rem;
+      font-family: sans-serif;
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero { flex-direction: column; padding: 3rem 6%; text-align: center; min-height: auto; }
+      .hero p { margin: 0 auto 2rem; }
+      nav ul { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">Petal <span>&</span> Bloom</div>
+    <ul>
+      <li><a href="#shop">Shop</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#order" class="nav-cta">Order Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-tag">Locally Grown &amp; Handpicked</div>
+      <h1>Fresh Flowers,<br><em>Lovingly</em> Arranged</h1>
+      <p>From our garden to your doorstep. Hand-crafted bouquets for every occasion — birthdays, weddings, or just because.</p>
+      <a href="#order" class="btn-primary">Shop Bouquets</a>
+      <a href="#about" class="btn-secondary">Our Story →</a>
+    </div>
+    <div class="hero-image">
+      <div class="flower-frame">&#127826;</div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="about">
+    <div class="section-label">Why Choose Us</div>
+    <h2>Grown with Care, Delivered with Love</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">&#127807;</div>
+        <h3>Farm Fresh</h3>
+        <p>Every stem is cut fresh from local partner farms and our own garden each morning.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#127873;</div>
+        <h3>Custom Arrangements</h3>
+        <p>Tell us the occasion and we'll craft something truly personal, just for you.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#128646;</div>
+        <h3>Same-Day Delivery</h3>
+        <p>Order before noon and we'll deliver to your door that same afternoon.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#9752;</div>
+        <h3>Eco Friendly</h3>
+        <p>All packaging is compostable. We care about the planet as much as the flowers.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="products" id="shop">
+    <div class="products-header">
+      <div class="section-label">Our Collection</div>
+      <h2>Bouquets for Every Moment</h2>
+    </div>
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-img p1">&#127800;</div>
+        <div class="product-info">
+          <h3>Rose Romance</h3>
+          <p>12 long-stem red roses, wrapped in satin ribbon.</p>
+          <span class="price">$38</span>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img p2">&#127803;</div>
+        <div class="product-info">
+          <h3>Sunny Delight</h3>
+          <p>Bright sunflowers &amp; chamomile — happiness in a vase.</p>
+          <span class="price">$28</span>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img p3">&#127808;</div>
+        <div class="product-info">
+          <h3>Garden Medley</h3>
+          <p>A wild mix of seasonal blooms fresh from the field.</p>
+          <span class="price">$34</span>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img p4">&#128144;</div>
+        <div class="product-info">
+          <h3>Lavender Dreams</h3>
+          <p>Soft lavender &amp; lilac tones for a gentle, romantic feel.</p>
+          <span class="price">$32</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="section-label">Happy Customers</div>
+    <h2>What People Are Saying</h2>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"The bouquet arrived fresh and so beautifully arranged. My wife was in tears — the good kind! Will definitely order again."</p>
+        <div class="testi-author">— James T.</div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"Best flowers I've ever bought. The same-day delivery saved me for my mom's birthday. Stunning and affordable!"</p>
+        <div class="testi-author">— Sarah K.</div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"I ordered a custom arrangement for my wedding and they exceeded every expectation. Absolute perfection."</p>
+        <div class="testi-author">— Maya & Liam</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner" id="order">
+    <h2>Ready to Brighten Someone's Day?</h2>
+    <p>Order online or call us and we'll help you find the perfect arrangement.</p>
+    <a href="tel:+15550001234" class="btn-white">&#128222; Call (555) 000-1234</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="contact">
+    <div class="footer-brand">
+      <div class="logo">Petal <span>&</span> Bloom</div>
+      <p>Handcrafted flower arrangements made with love for every occasion.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#">Bouquets</a></li>
+        <li><a href="#">Wedding Flowers</a></li>
+        <li><a href="#">Custom Orders</a></li>
+        <li><a href="#">Gift Cards</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">Our Story</a></li>
+        <li><a href="#">Sustainability</a></li>
+        <li><a href="#">Delivery Info</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+15550001234">(555) 000-1234</a></li>
+        <li><a href="mailto:hello@petalandbloom.com">hello@petalandbloom.com</a></li>
+        <li><a href="#">123 Garden Lane</a></li>
+      </ul>
+    </div>
+  </footer>
+  <div class="footer-bottom">
+    &copy; 2026 Petal &amp; Bloom. All rights reserved.
+  </div>
+
+</body>
+</html>
